@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+  --border-color: #DDE3EE;
+  --row-hover: #F7F9FC;
+  --table-bg: white;
+  --white: white;
+  --pagination-height: 60px;
+  --footer-bg: #f9f8ff;
+  --modal-header-bg: #f7f9fc;
+  --btn-border-hover: rgba(0, 0, 0, 0.4);
+  --btn-hover-delete: #a31b002f;
+  --btn-delete: #A31B00;
+  --btn-purple: #6c5ce7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+}
+
+.table-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--table-bg);
+  position: relative;
+}
+
+.table-top {
+  max-height: calc(100vh - var(--pagination-height));
+  overflow-y: scroll;
+}
+
+table thead {
+  position: sticky;
+  top: 0;
+  background: var(--white);
+  z-index: 99;
+  border-block: 1px solid var(--border-color);
+}
+
+table thead tr th {
+  border-right: 1px solid var(--border-color);
+  padding: 8px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+  min-width: min(fit-content, 200px);
+  height: 40px;
+}
+
+tbody {
+  border-bottom: var(--border-color) 1px solid;
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+tbody tr td {
+  padding: 8px 20px;
+  border-right: 1px solid var(--border-color);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  height: 60px;
+}
+
+tbody tr:hover {
+  background: var(--row-hover);
+}
+
+tbody tr:hover .right-sticky,
+tbody tr:hover .left-sticky {
+  background: var(--row-hover);
+}
+
+.left-sticky {
+  position: sticky;
+  left: 0;
+  background: var(--white);
+  min-width: 60px;
+}
+
+.right-sticky {
+  position: sticky;
+  right: 0;
+  background: var(--white);
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: max-content;
+  gap: 10px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.pagination {
+  height: var(--pagination-height);
+  border-block: var(--border-color) 1px solid;
+  background: var(--footer-bg);
+  padding: .5rem .75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #767676;
+}
+
+.pagination select {
+  height: 30px;
+  width: 50px;
+  text-align: center;
+}
+
+.pagination-left {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.left-sticky.relative~.absolute-modal {
+  display: none;
+}
+
+.absolute-modal {
+  position: absolute;
+  border-radius: 5px;
+  right: -10px;
+  top: 20px;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  min-width: max-content;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header,
+.modal-footer,
+.modal-body {
+  padding: 10px;
+}
+
+.modal-footer {
+  border-block: 1px solid var(--border-color);
+}
+
+.modal-header {
+  background: var(--modal-header-bg);
+}
+
+.pagination-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.pagination-btn:disabled {
+  cursor: not-allowed;
+}
+
+.pagination-btn:hover {
+  border-color: var(--btn-border-hover);
+}
+
+.content-types {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.content-type,
+.publish-status {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.delete-btn {
+  display: flex;
+  align-items: center;
+  color: var(--btn-delete);
+  background: transparent;
+  border: none;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 8px;
+  transition: .3s all;
+}
+
+.delete-btn:hover {
+  background: var(--btn-hover-delete);
+}
+
+.content-type-modal-footer {
+  display: flex;
+  gap: 5px;
+}
+
+.btn {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.purple-btn {
+  background: var(--btn-purple);
+  color: white;
+}
+
+.sort-icon {
+  cursor: pointer;
+  margin-left: 5px;
+  border: none;
+  background: transparent;
+}
