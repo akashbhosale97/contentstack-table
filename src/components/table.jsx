@@ -124,8 +124,7 @@ const Table = () => {
       </div>
       <div className="pagination">
         <div className="pagination-left">
-          Showing
-          <select
+          Showing<select
             onChange={(e) => {
               const value = parseInt(e.target.value);
               let validRows = value;
