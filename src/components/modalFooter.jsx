@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { filterTable } from "../store/slices/tableSlice"
 
-const ContentTypeModalFooter = ({ setModal }) => {
+const ModalFooter = ({ setModal }) => {
 
   const dispatch = useDispatch()
   function handleApply() {
@@ -17,4 +17,4 @@ const ContentTypeModalFooter = ({ setModal }) => {
   )
 }
 
-export default ContentTypeModalFooter
+export default ModalFooter

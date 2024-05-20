@@ -10,11 +10,12 @@ import RightExtremeIcon from "../assets/rightExtremeIcon";
 import LeftExtremeIcon from "../assets/leftExtremeIcon";
 import LeftArrowIcon from "../assets/leftArrowIcon";
 import RightArrowIcon from "../assets/rightArrowIcon";
-import ContentTypeModalFooter from "./contentTypeModalFooter";
+import ModalFooter from "./modalFooter";
 import { useDispatch, useSelector } from "react-redux";
 import PublishStatusModalBody from "./publishStatusModalBody";
 import { deleteRow, sortTableContentTypes } from "../store/slices/tableSlice";
 import SortIcon from "../assets/sortIcon";
+import ModifiedAtModalBody from "./modifiedAtModalBody";
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -48,15 +49,15 @@ const Table = () => {
     switch (modal) {
       case 'content type':
         return (
-          <ModalWrapper header={modal} body={<ContentTypeModalBody />} onClose={() => setModal('')} footer={<ContentTypeModalFooter setModal={setModal} />} />
+          <ModalWrapper header={modal} body={<ContentTypeModalBody />} onClose={() => setModal('')} footer={<ModalFooter setModal={setModal} />} />
         );
       case 'publish status':
         return (
-          <ModalWrapper header={modal} body={<PublishStatusModalBody />} onClose={() => setModal('')} footer={<ContentTypeModalFooter setModal={setModal} />} />
+          <ModalWrapper header={modal} body={<PublishStatusModalBody />} onClose={() => setModal('')} footer={<ModalFooter setModal={setModal} />} />
         );
       case 'modified at':
         return (
-          <ModalWrapper header={modal} onClose={() => setModal('')} />
+          <ModalWrapper header={modal} body={<ModifiedAtModalBody />} footer={<ModalFooter setModal={setModal} />} onClose={() => setModal('')} />
         );
     }
   };

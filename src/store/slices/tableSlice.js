@@ -20,14 +20,17 @@ const initialState = {
         checked: true,
       },
     ],
-    // modifiedAt: [],
+    modifiedAt: {
+      from: '2024-05-01',
+      to: new Date().toISOString().split('T')[0],
+    },
   },
   filteredData: TABLE_DATA,
   sortOrder: 'asc',
 };
 
 const applyFilters = (state) => {
-  const { contentTypes, statuses } = state.filters;
+  const { contentTypes, statuses, modifiedAt } = state.filters;
 
   state.filteredData = state.tableData.filter((row) => {
     const contentTypeMatch = contentTypes.some(
@@ -36,7 +39,14 @@ const applyFilters = (state) => {
     const statusMatch = statuses.some(
       (status) => status.checked && status.status === row['publish status']
     );
-    return contentTypeMatch && statusMatch;
+
+    const fromDate = new Date(modifiedAt.from);
+    const toDate = new Date(modifiedAt.to);
+    const modifiedAtDate = new Date(row['modified at']);
+    const result = modifiedAtDate >= fromDate && modifiedAtDate <= toDate;
+    if (result) {
+      return contentTypeMatch && statusMatch;
+    }
   });
 };
 
@@ -92,6 +102,11 @@ const tableSlice = createSlice({
         }
       });
     },
+    setModifiedAt: (state, action) => {
+      const { from, to } = action.payload;
+      state.filters.modifiedAt = { from, to };
+      console.log(state.filters.modifiedAt);
+    },
   },
 });
 
@@ -102,5 +117,6 @@ export const {
   filterTable,
   deleteRow,
   sortTableContentTypes,
+  setModifiedAt,
 } = tableSlice.actions;
 export default tableSlice.reducer;
