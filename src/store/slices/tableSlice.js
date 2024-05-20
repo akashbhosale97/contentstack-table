@@ -16,12 +16,12 @@ const initialState = {
         checked: true,
       },
       {
-        status: 'archived',
+        status: 'Archived',
         checked: true,
       },
     ],
     modifiedAt: {
-      from: '2024-05-01',
+      from: '2022-01-01',
       to: new Date().toISOString().split('T')[0],
     },
   },
