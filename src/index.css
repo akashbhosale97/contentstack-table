@@ -59,6 +59,7 @@ table thead::after {
 }
 
 table thead tr th {
+  position: relative;
   padding: 8px 20px;
   font-size: 15px;
   font-weight: 600;
@@ -300,4 +301,15 @@ tbody tr:hover .left-sticky {
   border-radius: 8px;
   padding: 5px;
   color: #767676;
+}
+
+.resize {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: col-resize;
+  width: 5px;
+  height: 100%;
+  transform: translateX(3px);
+  z-index: 20;
 }

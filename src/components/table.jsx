@@ -91,6 +91,7 @@ const Table = () => {
                       )}
                     </div>
                   )}
+                  <div className="resize" />
                 </th>
               ))}
             </tr>
