@@ -68,8 +68,12 @@ const Table = () => {
         <table>
           <thead>
             <tr>
-              {TABLE_HEADERS.map(({ header, sort }) => (
-                <th key={header} className={clsx(header === 'id' ? 'left-sticky' : '', header === 'actions' ? 'right-sticky' : '')}>
+              {TABLE_HEADERS.map(({ header, sort, width }) => (
+                <th
+                  style={{
+                    width: width,
+                  }}
+                  key={header} className={clsx(header === 'id' ? 'left-sticky' : '', header === 'actions' ? 'right-sticky' : '')}>
                   {header === 'id' ? (
                     <input
                       type="checkbox"
