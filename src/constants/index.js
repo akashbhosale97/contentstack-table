@@ -1,15 +1,15 @@
 export const TABLE_HEADERS = [
   { header: 'id', width: 60 },
-  { header: 'title', sort: true, width: 200 },
+  { header: 'title', sort: true, width: 300 },
   { header: 'language', width: 200 },
   { header: 'content type', width: 200 },
-  { header: 'version', width: 200 },
-  { header: 'publish status', width: 200 },
-  { header: 'variant info', width: 200 },
-  { header: 'modified at', width: 200 },
-  { header: 'tags', width: 200 },
-  { header: 'taxonomies', width: 200 },
-  { header: 'actions', width: 200 },
+  { header: 'version', width: 100 },
+  { header: 'publish status', width: 150 },
+  { header: 'variant info', width: 150 },
+  { header: 'modified at', width: 150 },
+  { header: 'tags', width: 150 },
+  { header: 'taxonomies', width: 150 },
+  { header: 'actions', width: 150 },
 ];
 
 export const TABLE_DATA = [

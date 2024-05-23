@@ -68,6 +68,8 @@ table thead tr th {
   text-transform: capitalize;
   border-right: 1px solid var(--border-color);
   height: 40px;
+  max-width: 500px;
+  user-select: none;
 }
 
 tbody {
@@ -104,7 +106,7 @@ tbody tr:hover .left-sticky {
   position: sticky;
   left: 0;
   background: var(--white);
-  min-width: 60px;
+  max-width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,7 +135,7 @@ tbody tr:hover .left-sticky {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: max-content;
+  text-wrap: nowrap;
   gap: 10px;
 }
 

@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { TABLE_HEADERS } from '../constants';
 import { alignText, displayFilter } from "../utils";
 import FilterIcon from "../assets/filterIcon";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ModalWrapper from "./modalWrapper";
 import ContentTypeModalBody from "./contentTypeModalBody";
 import DeleteIcon from "../assets/deleteIcon";
@@ -28,6 +28,45 @@ const Table = () => {
   const numberOfPages = Math.ceil(tableData.length / numberOfRows);
   const currentPageRows = tableData.slice((currentPage - 1) * numberOfRows, currentPage * numberOfRows);
   const allSelected = selectedRows.length === tableData.length;
+
+  const [columnWidths, setColumnWidths] = useState(TABLE_HEADERS.reduce((acc, { header, width }) => {
+    acc[header] = width || 150;
+    return acc;
+  }, {}));
+  const [originalWidths] = useState(TABLE_HEADERS.reduce((acc, { header, width }) => {
+    acc[header] = width || 150;
+    return acc;
+  }, {}));
+
+  const resizingRef = useRef({ isResizing: false, column: null, startX: 0, startWidth: 0 });
+
+  const handleMouseDown = (header, e) => {
+    resizingRef.current = {
+      isResizing: true,
+      column: header,
+      startX: e.clientX,
+      startWidth: columnWidths[header],
+    };
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+  };
+
+  const handleMouseMove = (e) => {
+    e.preventDefault();
+    if (!resizingRef.current.isResizing) return;
+    const { startX, startWidth, column } = resizingRef.current;
+    const newWidth = startWidth + (e.clientX - startX);
+    setColumnWidths((prevWidths) => ({
+      ...prevWidths,
+      [column]: newWidth > originalWidths[column] ? newWidth : originalWidths[column],
+    }));
+  };
+
+  const handleMouseUp = () => {
+    resizingRef.current.isResizing = false;
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
+  };
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
@@ -68,10 +107,10 @@ const Table = () => {
         <table>
           <thead>
             <tr>
-              {TABLE_HEADERS.map(({ header, sort, width }) => (
+              {TABLE_HEADERS.map(({ header, sort }) => (
                 <th
                   style={{
-                    width: width,
+                    width: columnWidths[header],
                   }}
                   key={header} className={clsx(header === 'id' ? 'left-sticky' : '', header === 'actions' ? 'right-sticky' : '')}>
                   {header === 'id' ? (
@@ -95,7 +134,7 @@ const Table = () => {
                       )}
                     </div>
                   )}
-                  <div className="resize" />
+                  <div className="resize" onMouseDown={(e) => handleMouseDown(header, e)} />
                 </th>
               ))}
             </tr>
