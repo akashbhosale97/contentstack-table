@@ -6,16 +6,13 @@ import { useState, useRef } from "react";
 import ModalWrapper from "./modalWrapper";
 import ContentTypeModalBody from "./contentTypeModalBody";
 import DeleteIcon from "../assets/deleteIcon";
-import RightExtremeIcon from "../assets/rightExtremeIcon";
-import LeftExtremeIcon from "../assets/leftExtremeIcon";
-import LeftArrowIcon from "../assets/leftArrowIcon";
-import RightArrowIcon from "../assets/rightArrowIcon";
 import ModalFooter from "./modalFooter";
 import { useDispatch, useSelector } from "react-redux";
 import PublishStatusModalBody from "./publishStatusModalBody";
 import { deleteRow, sortTableContentTypes } from "../store/slices/tableSlice";
 import SortIcon from "../assets/sortIcon";
 import ModifiedAtModalBody from "./modifiedAtModalBody";
+import Pagination from "./pagination";
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -167,55 +164,7 @@ const Table = () => {
           </tbody>
         </table>
       </div>
-      <div className="pagination">
-        <div className="pagination-left">
-          Showing<select
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              let validRows = value;
-              if (value > tableData.length) {
-                validRows = Math.ceil(tableData.length / 10) * 10;
-              }
-              setNumberOfRows(validRows);
-              setCurrentPage(1);
-            }}
-            value={numberOfRows}
-          >
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-          </select>
-          of {tableData.length} records
-        </div>
-        <div className="pagination-right">
-          <button className="pagination-btn" disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>
-            <LeftExtremeIcon />
-          </button>
-          <button className="pagination-btn" disabled={currentPage === 1} onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}>
-            <LeftArrowIcon />
-          </button>
-          <select
-            onChange={(e) => {
-              setCurrentPage(parseInt(e.target.value));
-            }}
-            value={currentPage}
-          >
-            {Array.from({ length: numberOfPages }).map((_, index) => (
-              <option key={index} value={index + 1}>
-                {index + 1}
-              </option>
-            ))}
-          </select>
-          <button className="pagination-btn" disabled={currentPage >= numberOfPages} onClick={() => currentPage < numberOfPages && setCurrentPage(currentPage + 1)}>
-            <RightArrowIcon />
-          </button>
-          <button className="pagination-btn" disabled={currentPage >= numberOfPages} onClick={() => setCurrentPage(numberOfPages)}>
-            <RightExtremeIcon />
-          </button>
-        </div>
-      </div>
+      <Pagination tableData={tableData} currentPage={currentPage} setCurrentPage={setCurrentPage} numberOfRows={numberOfRows} setNumberOfRows={setNumberOfRows} numberOfPages={numberOfPages} />
     </div>
   );
 };
