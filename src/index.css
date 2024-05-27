@@ -72,6 +72,11 @@ table thead tr th {
   user-select: none;
 }
 
+table thead tr th:nth-last-child(2),
+table thead tr th:last-child {
+  border-right: none;
+}
+
 tbody {
   border-bottom: var(--border-color) 1px solid;
 }
@@ -91,6 +96,11 @@ tbody tr td {
   overflow: hidden;
   text-overflow: ellipsis;
   height: 60px;
+}
+
+tbody tr td:nth-last-child(2),
+tbody tr td:last-child {
+  border-right: none;
 }
 
 tbody tr:hover {
@@ -117,6 +127,7 @@ tbody tr:hover .left-sticky {
   position: sticky;
   right: 0;
   background: var(--white);
+  box-shadow: inset 1px 0 0 var(--border-color), inset -1px 0 0 var(--border-color);
 }
 
 .align-left {
