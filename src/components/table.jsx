@@ -98,6 +98,50 @@ const Table = () => {
     }
   };
 
+  const renderCell = (header, item) => {
+    if (header === 'id') {
+      return (
+        <input
+          type="checkbox"
+          checked={selectedRows.includes(item.id)}
+          onChange={(e) => handleSelectRow(e, item.id)}
+        />
+      );
+    } else if (header === 'actions') {
+      return (
+        <button className="delete-btn" onClick={() => dispatch(deleteRow({ id: item.id }))}>
+          <DeleteIcon /> Delete
+        </button>
+      );
+    } else {
+      return item[header];
+    }
+  };
+
+  const renderHeader = (header, sort) => {
+    if (header === 'id') {
+      return <input
+        type="checkbox"
+        checked={allSelected}
+        onChange={handleSelectAll}
+      />
+    } else {
+      return <div className="flex">
+        {sort ? <>{header}{<button className="sort-icon" onClick={() => dispatch(sortTableContentTypes())}><SortIcon sortType={sortOrder} /></button>}</> : header}
+        {displayFilter(header) && (
+          <div className="relative">
+            <FilterIcon onClick={() => setModal(header)} />
+            {modal === header && (
+              <div className="absolute-modal">
+                {renderModal()}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    }
+  }
+
   return (
     <div className="table-container">
       <div className="table-top">
@@ -110,27 +154,7 @@ const Table = () => {
                     width: columnWidths[header],
                   }}
                   key={header} className={clsx(header === 'id' ? 'left-sticky' : '', header === 'actions' ? 'right-sticky' : '')}>
-                  {header === 'id' ? (
-                    <input
-                      type="checkbox"
-                      checked={allSelected}
-                      onChange={handleSelectAll}
-                    />
-                  ) : (
-                    <div className="flex">
-                      {sort ? <>{header}{<button className="sort-icon" onClick={() => dispatch(sortTableContentTypes())}><SortIcon sortType={sortOrder} /></button>}</> : header}
-                      {displayFilter(header) && (
-                        <div className="relative">
-                          <FilterIcon onClick={() => setModal(header)} />
-                          {modal === header && (
-                            <div className="absolute-modal">
-                              {renderModal()}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                  {renderHeader(header, sort)}
                   <div className="resize" onMouseDown={(e) => handleMouseDown(header, e)} />
                 </th>
               ))}
@@ -144,19 +168,7 @@ const Table = () => {
                     key={header}
                     className={clsx(header === 'id' ? 'left-sticky' : '', header === 'actions' ? 'right-sticky' : '', alignText(header))}
                   >
-                    {header === 'id' ? (
-                      <input
-                        type="checkbox"
-                        checked={selectedRows.includes(item.id)}
-                        onChange={(e) => handleSelectRow(e, item.id)}
-                      />
-                    ) : header === 'actions' ? (
-                      <button className="delete-btn" onClick={() => dispatch(deleteRow({ id: item.id }))}>
-                        <DeleteIcon /> Delete
-                      </button>
-                    ) : (
-                      item[header]
-                    )}
+                    {renderCell(header, item)}
                   </td>
                 ))}
               </tr>
