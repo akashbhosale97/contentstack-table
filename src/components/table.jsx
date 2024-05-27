@@ -114,7 +114,11 @@ const Table = () => {
           <DeleteIcon /> Delete
         </button>
       );
-    } else {
+    }
+    else if (header === 'taxonomies' || header === 'tags') {
+      return item[header].join(', ')
+    }
+    else {
       return item[header];
     }
   };
