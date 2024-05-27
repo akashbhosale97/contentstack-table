@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { TABLE_HEADERS } from '../constants';
 import { alignText, displayFilter } from "../utils";
 import FilterIcon from "../assets/filterIcon";
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import ModalWrapper from "./modalWrapper";
 import ContentTypeModalBody from "./contentTypeModalBody";
 import DeleteIcon from "../assets/deleteIcon";
@@ -22,6 +22,7 @@ const Table = () => {
   const [modal, setModal] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [openModal, setOpenModal] = useState(false)
   const numberOfPages = Math.ceil(tableData.length / numberOfRows);
   const currentPageRows = tableData.slice((currentPage - 1) * numberOfRows, currentPage * numberOfRows);
   const allSelected = selectedRows.length === tableData.length;
@@ -81,7 +82,7 @@ const Table = () => {
     }
   };
 
-  const renderModal = () => {
+  const renderModal = useCallback(() => {
     switch (modal) {
       case 'content type':
         return (
@@ -96,7 +97,7 @@ const Table = () => {
           <ModalWrapper header={modal} body={<ModifiedAtModalBody />} footer={<ModalFooter setModal={setModal} />} onClose={() => setModal('')} />
         );
     }
-  };
+  }, [modal]);
 
   const renderCell = (header, item) => {
     if (header === 'id') {
@@ -130,8 +131,11 @@ const Table = () => {
         {sort ? <>{header}{<button className="sort-icon" onClick={() => dispatch(sortTableContentTypes())}><SortIcon sortType={sortOrder} /></button>}</> : header}
         {displayFilter(header) && (
           <div className="relative">
-            <FilterIcon onClick={() => setModal(header)} />
-            {modal === header && (
+            <FilterIcon onClick={() => {
+              setModal(header)
+              setOpenModal(!openModal)
+            }} />
+            {modal === header && openModal && (
               <div className="absolute-modal">
                 {renderModal()}
               </div>

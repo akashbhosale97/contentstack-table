@@ -20,10 +20,6 @@ export function displayFilter(text) {
   }
 }
 
-export function filterRows(data) {
-  return data.filter((item) => item['publish status'] === 'Draft');
-}
-
 export function getContentTypes(data) {
   const uniqueContentTypes = new Set(data.map((item) => item['content type']));
   return [...uniqueContentTypes].map((contentType) => ({
