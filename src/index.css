@@ -128,6 +128,11 @@ tbody tr:hover .left-sticky {
   right: 0;
   background: var(--white);
   box-shadow: inset 1px 0 0 var(--border-color), inset -1px 0 0 var(--border-color);
+  max-width: 150px;
+}
+
+.right-sticky .resize {
+  pointer-events: none;
 }
 
 .align-left {

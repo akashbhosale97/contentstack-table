@@ -53,7 +53,12 @@ const Table = () => {
     e.preventDefault();
     if (!resizingRef.current.isResizing) return;
     const { startX, startWidth, column } = resizingRef.current;
-    const newWidth = startWidth + (e.clientX - startX);
+    let newWidth = startWidth + (e.clientX - startX);
+    if (newWidth > 500) {
+      newWidth = 500;
+    } else if (newWidth < 300) {
+      newWidth = 300;
+    }
     setColumnWidths((prevWidths) => ({
       ...prevWidths,
       [column]: newWidth > originalWidths[column] ? newWidth : originalWidths[column],
