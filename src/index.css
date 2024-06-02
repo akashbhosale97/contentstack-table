@@ -39,7 +39,7 @@ table {
 
 .table-top {
   max-height: calc(100vh - var(--pagination-height));
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 table thead {
